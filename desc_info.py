@@ -1,5 +1,6 @@
 # Import libraries
 import pandas as pd 
+#   from sklearn.datasets import load_boston
 
 ##  There are three functions in here, first two are commented out, the last, which is optimized 
 ##  from a performance perspective, remains.  Test results are commented at the bottom as well.
@@ -137,12 +138,15 @@ def desc_info(self):
     desc = self.describe(include='all')
     # dtype, null, zero, unique, sum
     info = {'dtype': self.dtypes,
-        'len': self.apply(lambda x: len(x), axis=0),
         'null': self.apply(lambda x: x.isnull().sum(), axis=0),
         'zero': self.apply(lambda x: (x == 0).sum(), axis=0),
         'unique': self.apply(lambda x: len(x.unique()), axis=0)}
     info = pd.DataFrame(info).transpose()
-    return pd.concat([desc, info])
+    info = pd.concat([desc, info])
+    idx = ['dtype','count','unique','null','zero','mean',
+    'std','min','25%','50%','75%','max']
+    info = info.reindex(idx)
+    return info
 
 # set as method
 setattr(pd.DataFrame, 'desc_info', desc_info)
