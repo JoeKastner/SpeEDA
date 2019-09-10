@@ -69,9 +69,11 @@ def drop_unpop_cols(self, pop_perc=0.4):
         print('Columns with < %d%% population were dropped: %s' % ((pop_perc * 100), ', '.join(dropped)))
     else:
         print('All columns at least %d%% populated.' % ((pop_perc * 100)))
-    return self.drop(columns=dropped) 
+    return self.drop(columns=dropped)
 
 setattr(pd.DataFrame, 'drop_unpop_cols', drop_unpop_cols)
+
+
 
 
 
